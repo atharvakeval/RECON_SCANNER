@@ -27,13 +27,13 @@ python-nmap (Python wrapper for Nmap)
 
 Options
 Option	Description
---target	Target domain (e.g. example.com)
---plugins	List of plugins to run (e.g. port_scan dns_enum)
---output	Save results to JSON file
---config	Load scan configuration from a JSON file
---verbose	Show more detailed output
---quiet	Suppress all non-error output
---debug	Show debugging information
+--target	  Target domain (e.g. example.com)
+--plugins  	List of plugins to run (e.g. port_scan dns_enum)
+--output	  Save results to JSON file
+--config	  Load scan configuration from a JSON file
+--verbose	  Show more detailed output
+--quiet	    Suppress all non-error output
+--debug	    Show debugging information
 
 🔌 Available Plugins
 These plugins are located in the /plugins folder:
