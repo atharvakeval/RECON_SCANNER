@@ -25,11 +25,6 @@ python-nmap (Python wrapper for Nmap)
 
 ---
 
-Install dependencies with:
-
-```bash
-pip install -r requirements.txt
-
 Options
 Option	Description
 --target	Target domain (e.g. example.com)
@@ -51,3 +46,11 @@ dir_bruteforce — directory enumeration on web targets
 🛡️ Disclaimer
 This tool is for educational purposes and authorized testing only.
 Do not scan systems without permission — unauthorized use is illegal.
+
+
+---
+Install dependencies with:
+
+```bash
+pip install -r requirements.txt
+
