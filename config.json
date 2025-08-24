@@ -1,0 +1,9 @@
+{
+  "target": "example.com",
+  "scan": true,
+  "dns": true,
+  "subenum": true,
+  "dir_brute": true,
+  "output": "output/report.json",
+  "verbose": true
+}

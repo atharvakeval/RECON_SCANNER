@@ -1,0 +1,9 @@
+admin
+login
+dashboard
+robots.txt
+uploads
+config
+api
+assets
+server-status
