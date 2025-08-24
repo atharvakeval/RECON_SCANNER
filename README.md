@@ -23,6 +23,20 @@ requests
 nmap (system-level dependency)
 python-nmap (Python wrapper for Nmap)
 
+
+certifi==2025.8.3
+charset-normalizer==3.4.3
+colorama==0.4.6
+dnspython==2.7.0
+idna==3.10
+python-nmap==0.7.1
+requests==2.32.5
+termcolor==2.3.0
+tqdm==4.67.1
+urllib3==2.5.0
+yaspin==3.1.0
+
+
 ---
 
 
