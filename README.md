@@ -57,3 +57,14 @@ Option	Description
 --verbose	  Show more detailed output
 --quiet	    Suppress all non-error output
 --debug	    Show debugging information
+
+guidlines
+
+Run all plugins at once:
+python main.py -t scanme.nmap.org --all
+
+Run only selected plugins:
+python main.py -t scanme.nmap.org --plugins port_scan dns_enum
+
+Save results:
+python main.py -t scanme.nmap.org --all --output report.json
