@@ -1,47 +1,57 @@
-# plugins/dir_bruteforce_plugin.py
+import requests
+import os
 
-from modules import dir_bruteforce
-
-# Plugin identifier
 name = "dir_bruteforce"
 
-# Metadata for introspection or future plugin manager
-metadata = {
-    "name": "Directory Bruteforce Plugin",
-    "description": "Bruteforces directories on a web server using a wordlist.",
-    "author": "YourName",
-    "version": "1.0"
-}
+def run(target, config=None, verbose=False, wordlist=None):
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  
+    # now base_dir = D:\cyber security\project\RedRecon
 
+    fallback_wordlists = [
+        os.path.join(base_dir, "wordlists", "wordlist.txt"),
+        os.path.join(base_dir, "wordlists", "common.txt"),
+        os.path.join(base_dir, "wordlists", "directory-list.txt"),
+    ]
 
-def run(target, config=None, verbose=False):
-    """
-    Runs the directory brute force scan.
+    # Pick wordlist
+    wordlist_path = None
+    if wordlist and os.path.isfile(wordlist):
+        wordlist_path = wordlist
+    else:
+        for wl in fallback_wordlists:
+            if os.path.isfile(wl):
+                wordlist_path = wl
+                break
 
-    Args:
-        target (str): The domain or IP to scan.
-        config (dict): Optional configuration dictionary.
-        verbose (bool): Whether to print verbose output.
+    if not wordlist_path:
+        print("[-] No valid wordlist found. Please place one in 'wordlists/' or use --wordlist")
+        return {}
 
-    Returns:
-        list: A list of discovered directories.
-    """
-    # Default wordlist path
-    wordlist_path = "wordlists/wordlist.txt"
+    print(f"[+] Using wordlist: {wordlist_path}")
 
-    # Allow config override
-    if config and "wordlist" in config:
-        wordlist_path = config["wordlist"]
-
-    if verbose:
-        print(f"[PLUGIN: dir_bruteforce] Starting directory brute force on {target}")
-        print(f"[PLUGIN: dir_bruteforce] Using wordlist: {wordlist_path}")
-
-    # Call the underlying module function
     try:
-        results = dir_bruteforce.dir_bruteforce(target, wordlist_path, verbose=verbose)
-        return results
+        with open(wordlist_path, "r", encoding="utf-8", errors="ignore") as f:
+            words = [line.strip() for line in f if line.strip()]
     except Exception as e:
-        if verbose:
-            print(f"[PLUGIN: dir_bruteforce] Error: {e}")
-        return []
+        print(f"[-] Failed to load wordlist: {e}")
+        return {}
+
+    found_dirs = []
+    base_url = f"http://{target}".rstrip("/")
+
+    for word in words:
+        url = f"{base_url}/{word}"
+        try:
+            response = requests.get(url, timeout=5)
+            if response.status_code in [200, 301, 302, 403]:
+                found_dirs.append({"url": url, "status": response.status_code})
+                if verbose:
+                    print(f"[+] Found: {url} (Status: {response.status_code})")
+            elif verbose:
+                print(f"[-] Not found: {url}")
+        except requests.RequestException:
+            if verbose:
+                print(f"[!] Error accessing {url}")
+            continue
+
+    return {"directories": found_dirs}

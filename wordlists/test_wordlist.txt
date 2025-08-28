@@ -1,9 +1,8 @@
 admin
 login
 dashboard
-robots.txt
 uploads
-config
+images
 api
-assets
 server-status
+robots.txt

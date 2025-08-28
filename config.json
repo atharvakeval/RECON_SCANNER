@@ -1,9 +1,6 @@
 {
   "target": "example.com",
-  "scan": true,
-  "dns": true,
-  "subenum": true,
-  "dir_brute": true,
+  "plugins": ["port_scan", "dns_enum", "subdomain_enum", "dir_bruteforce"],
   "output": "output/report.json",
   "verbose": true
 }
