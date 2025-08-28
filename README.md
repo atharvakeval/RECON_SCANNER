@@ -1,70 +1,75 @@
-# 🔍 RedRecon - Modular Pentesting Toolkit
+🔍 RedRecon - Modular Pentesting Toolkit
 
-**RECON_SCANNER** is a simple, beginner-friendly, modular reconnaissance and scanning tool for ethical hackers and cybersecurity students. It is designed to automate basic enumeration tasks and is built with extensibility in mind using a **plugin-based architecture**.
+RedRecon (RECON_SCANNER) is a simple, beginner-friendly, modular reconnaissance and scanning tool for ethical hackers and cybersecurity students.
+It automates basic enumeration tasks and is designed with extensibility in mind using a plugin-based architecture.
 
----
+✨ Features
 
-## ✨ Features
+🧩 Plugin-based design — easy to extend
 
-- 🧩 Plugin-based design — easy to extend
-- 🌐 DNS record enumeration
-- 📛 Subdomain enumeration
-- 📂 Directory brute-forcing
-- 🔌 Port scanning (via Nmap)
-- ⚙️ Configurable via JSON
-- 🔇 Quiet and debug modes
-- 💾 Output saved in JSON and summary formats
+🌐 DNS record enumeration
 
----
+📛 Subdomain enumeration
 
-## 📦 Requirements
-dnspython
-requests
-nmap (system-level dependency)
-python-nmap (Python wrapper for Nmap)
+📂 Directory brute-forcing
 
+🔌 Port scanning (via Nmap)
 
+⚙️ Configurable via JSON
 
----
+🔇 Quiet / Debug modes
 
+💾 Save output (JSON + summary)
 
-🔌 Available Plugins
-These plugins are located in the /plugins folder:
-port_scan — basic Nmap port scanning
-dns_enum — get DNS records
-subdomain_enum — find subdomains using a wordlist
-dir_bruteforce — directory enumeration on web targets
+📦 Requirements
 
+Install Python dependencies with:
 
-🛡️ Disclaimer
-This tool is for educational purposes and authorized testing only.
-Do not scan systems without permission — unauthorized use is illegal.
-
-
----
-Install dependencies with:
-
-```bash
 pip install -r requirements.txt
 
 
-Options
-Option	Description
---target	  Target domain (e.g. example.com)
---plugins  	List of plugins to run (e.g. port_scan dns_enum)
---output	  Save results to JSON file
---config	  Load scan configuration from a JSON file
---verbose	  Show more detailed output
---quiet	    Suppress all non-error output
---debug	    Show debugging information
+Also ensure Nmap is installed on your system (system-level dependency).
 
-guidlines
+🔌 Available Plugins
 
-Run all plugins at once:
+All plugins are located in the /plugins folder:
+
+port_scan → Nmap-based port scanning
+
+dns_enum → DNS record enumeration
+
+subdomain_enum → Find subdomains via crt.sh
+
+dir_bruteforce → Directory brute-forcing on web targets
+
+⚙️ Usage
+Run all plugins at once
 python main.py -t scanme.nmap.org --all
 
-Run only selected plugins:
+Run only selected plugins
 python main.py -t scanme.nmap.org --plugins port_scan dns_enum
+
+Use a config file
+python main.py --config config.json
+
+Save results
+python main.py -t scanme.nmap.org --all --output report.json
+
+📑 Options
+Option	Description
+--target	Target domain (e.g., example.com)
+--plugins	List of plugins to run (e.g., port_scan dns_enum)
+--all	Run all available plugins
+--output	Save results to JSON file
+--config	Load scan configuration from JSON file
+--verbose	Show detailed output
+--quiet	Suppress normal output
+--debug	Show debugging information
+
+🛡️ Disclaimer
+
+This tool is for educational purposes and authorized security testing only.
+Do not scan systems without permission — unauthorized use is illegal.nmap.org --plugins port_scan dns_enum
 
 Save results:
 python main.py -t scanme.nmap.org --all --output report.json
